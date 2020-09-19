@@ -13,12 +13,13 @@ import {
 	DropdownMenu,
 	DropdownItem,
 } from "reactstrap";
+import io from "socket.io-client";
 
 let stockfish = null;
 
 class Board extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			position:
 				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -54,6 +55,15 @@ class Board extends Component {
 			turn: "w",
 			setupBoardIcon: "far fa-edit",
 			setupBoardIconTitle: "Edit Board",
+		};
+
+		this.socket = io("localhost:8080");
+		this.socket.on("RECEIVE_MESSAGE", function (data) {
+			socketPlayMove(data);
+		});
+
+		const socketPlayMove = (data) => {
+			this.setState({ position: data.fen });
 		};
 	}
 
@@ -474,6 +484,10 @@ class Board extends Component {
 			stockfish.terminate();
 			this.engineAnalysis();
 		}
+
+		this.socket.emit("SEND_MESSAGE", {
+			fen: this.state.fen,
+		});
 	};
 
 	deletePieces = () => {
