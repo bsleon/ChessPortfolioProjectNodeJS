@@ -118,7 +118,7 @@ class Contact extends Component {
 											name="firstName"
 											placeholder="First Name"
 											value={this.state.firstName}
-											invalid={errors.firstName}
+											// invalid={errors.firstName}
 											onBlur={this.handleBlur(
 												"firstName"
 											)}
@@ -140,7 +140,7 @@ class Contact extends Component {
 											name="lastName"
 											placeholder="Last Name"
 											value={this.state.lastName}
-											invalid={errors.lastName}
+											// invalid={errors.lastName}
 											onBlur={this.handleBlur("lastName")}
 											onChange={this.handleInputChange}
 										/>
@@ -160,7 +160,7 @@ class Contact extends Component {
 											name="phoneNum"
 											placeholder="Phone number"
 											value={this.state.phoneNum}
-											invalid={errors.phoneNum}
+											// invalid={errors.phoneNum}
 											onBlur={this.handleBlur("phoneNum")}
 											onChange={this.handleInputChange}
 										/>
@@ -180,7 +180,7 @@ class Contact extends Component {
 											name="email"
 											placeholder="Email"
 											value={this.state.email}
-											invalid={errors.email}
+											// invalid={errors.email}
 											onBlur={this.handleBlur("email")}
 											onChange={this.handleInputChange}
 										/>

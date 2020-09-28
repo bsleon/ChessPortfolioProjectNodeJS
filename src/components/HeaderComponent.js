@@ -168,6 +168,7 @@ class Header extends Component {
 											<a
 												onClick={this.handleLogout}
 												className="nav-link"
+												style={{ cursor: "pointer"}}
 												// to="/home"
 											>
 												Logout
