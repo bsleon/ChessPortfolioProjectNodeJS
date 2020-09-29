@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 
@@ -31,8 +32,8 @@ class Signup extends Component {
 				password: this.state.password,
 			})
 			.then((response) => {
-				console.log(response);
-				if (!response.data.errmsg) {
+				console.log(response.data);
+				if (!response.data.error) {
 					console.log("successful signup");
 					this.setState({
 						//redirect to login page
@@ -49,44 +50,52 @@ class Signup extends Component {
 	};
 
 	render() {
-		return (
-			<React.Fragment>
-				<div className="container">
-					<div className="row row-content">
-						<div className="col-6">
-							<Form>
-								<FormGroup>
-									<Label htmlFor="username">Username</Label>
-									<Input
-										type="text"
-										id="username"
-										name="username"
-										onChange={this.handleChange}
-									/>
-								</FormGroup>
-								<FormGroup>
-									<Label htmlFor="password">Password</Label>
-									<Input
-										type="password"
-										id="password"
-										name="password"
-										onChange={this.handleChange}
-									/>
-								</FormGroup>
-								<Button
-									type="submit"
-									value="submit"
-									color="primary"
-									onClick={this.handleSubmit}
-								>
-									Sign Up
-								</Button>
-							</Form>
+		if (this.state.redirectTo) {
+			return <Redirect to={{ pathname: this.state.redirectTo }} />;
+		} else {
+			return (
+				<React.Fragment>
+					<div className="container">
+						<div className="row row-content">
+							<div className="col-6">
+								<Form>
+									<FormGroup>
+										<Label htmlFor="username">
+											Username
+										</Label>
+										<Input
+											type="text"
+											id="username"
+											name="username"
+											onChange={this.handleChange}
+										/>
+									</FormGroup>
+									<FormGroup>
+										<Label htmlFor="password">
+											Password
+										</Label>
+										<Input
+											type="password"
+											id="password"
+											name="password"
+											onChange={this.handleChange}
+										/>
+									</FormGroup>
+									<Button
+										type="submit"
+										value="submit"
+										color="primary"
+										onClick={this.handleSubmit}
+									>
+										Sign Up
+									</Button>
+								</Form>
+							</div>
 						</div>
 					</div>
-				</div>
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		}
 	}
 }
 
