@@ -15,59 +15,32 @@ class Login extends Component {
 		});
 	};
 
-	handleLogin = (event) => {
-		event.preventDefault();
-		console.log("handleLogin");
+    handleLogin = (event) => {
+        event.preventDefault();
+        console.log("handleLogin");
 
-		axios
-			.post("/users/login", {
-				username: this.state.username,
-				password: this.state.password,
-			})
-			.then((response) => {
-				console.log("login response: ");
-				console.log(response);
-				if (response.status === 200) {
-					// update App.js state
-					this.props.updateUser(true, response.data.username);
-					// update the state to redirect to home
-					this.setState({
-						redirectTo: "/",
-					});
-				}
-			})
-			.catch((error) => {
-				console.log("login error: ");
-				console.log(error);
-			});
-	};
-
-	// handleLogout = (event) => {
-	// 	event.preventDefault();
-	// 	console.log("handleLogout");
-
-	// 	axios
-	// 		.post("/users/logout", {
-	// 			username: this.state.username,
-	// 			password: this.state.password,
-	// 		})
-	// 		.then((response) => {
-	// 			console.log("logout response: ");
-	// 			console.log(response);
-	// 			if (response.status === 200) {
-	// 				// update App.js state
-	// 				this.props.updateUser(false, response.data.username);
-	// 				// update the state to redirect to home
-	// 				this.setState({
-	// 					redirectTo: "/",
-	// 				});
-	// 			}
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log("logout error: ");
-	// 			console.log(error);
-	// 		});
-	// };
+        axios
+            .post("/users/login", {
+                username: this.state.username,
+                password: this.state.password,
+            })
+            .then((response) => {
+                console.log("login response: ");
+                console.log(response);
+                if (response.status === 200) {
+                    // update App.js state
+                    this.props.updateUser(true, response.data.username);
+                    // update the state to redirect to home
+                    this.setState({
+                        redirectTo: "/",
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log("login error: ");
+                console.log(error);
+            });
+    };
 
 	render() {
 		if (this.state.redirectTo) {
