@@ -8,36 +8,37 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("./passport");
 const app = express();
 const PORT = 8080;
+// const cors = require("cors");
 
 //Route requires
 const usersRouter = require("./routes/users");
 
 // MIDDLEWARE
-app.use(morgan('dev'))
+// app.use(cors());
+app.use(morgan("dev"));
 app.use(
 	bodyParser.urlencoded({
-		extended: false
+		extended: false,
 	})
-)
-app.use(bodyParser.json())
+);
+app.use(bodyParser.json());
 
 // Sessions
 app.use(
 	session({
-		secret: 'fraggle-rock',
+		secret: "fraggle-rock",
 		store: new MongoStore({ mongooseConnection: dbConnection }),
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
 	})
-)
+);
 
 // Passport
-app.use(passport.initialize())
-app.use(passport.session()) // calls the deserializeUser
+app.use(passport.initialize());
+app.use(passport.session()); // calls the deserializeUser
 
 //Routes
 app.use("/users", usersRouter);
-
 
 //Socket.io
 const server = app.listen(PORT, () => {

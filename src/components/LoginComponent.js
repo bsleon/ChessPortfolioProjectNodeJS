@@ -32,7 +32,7 @@ class Login extends Component {
                     this.props.updateUser(true, response.data.username);
                     // update the state to redirect to home
                     this.setState({
-                        redirectTo: "/",
+                        redirectTo: "/home",
                     });
                 }
             })

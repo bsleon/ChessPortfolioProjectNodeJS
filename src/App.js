@@ -23,12 +23,16 @@ class App extends Component {
 		this.getUser();
 	}
 
+	// componentDidUpdate() {
+	// 	this.getUser();
+	// }
+
 	updateUser = (loggedIn, username) => {
 		this.setState({ loggedIn: loggedIn, username: username });
-	}
+	};
 
 	getUser = () => {
-		axios.get("/users/").then((response) => {
+		axios.get("/users/user").then((response) => {
 			console.log("Get user response: ");
 			console.log(response.data);
 			if (response.data.user) {
@@ -47,7 +51,7 @@ class App extends Component {
 				});
 			}
 		});
-	}
+	};
 
 	render() {
 		return (
@@ -57,29 +61,57 @@ class App extends Component {
 						username={this.state.username}
 						updateUser={this.updateUser}
 					/>
-					<Switch>
-						{/* <Route exact path="/home" component={Home} /> */}
-						{/* <Route exact path="/games/:gameid" component={Home} /> */}
-						<Route exact path="/home" component={Home} />
-						<Route
-							exact
-							path="/playcomputer"
-							component={PlayComputer}
-						/>
-						<Route exact path="/contact" component={Contact} />
-						<Route
-							exact
-							path="/users/login"
-							render={() => (
-								<Login
-									updateUser={this.updateUser}
-									loggedIn={this.state.loggedIn}
-								/>
-							)}
-						/>
-						<Route exact path="/users/sign-up" component={SignUp} />
-						<Redirect to="/home" />
-					</Switch>
+					{this.state.loggedIn ? (
+						<Switch>
+							{/* <Route exact path="/home" component={Home} /> */}
+							{/* <Route exact path="/games/:gameid" component={Home} /> */}
+
+							<Route exact path="/home" component={Home} />
+
+							<Route
+								exact
+								path="/playcomputer"
+								component={PlayComputer}
+							/>
+							<Route exact path="/contact" component={Contact} />
+							<Route
+								exact
+								path="/users/login"
+								render={() => (
+									<Login
+										updateUser={this.updateUser}
+										loggedIn={this.state.loggedIn}
+									/>
+								)}
+							/>
+							<Route
+								exact
+								path="/users/sign-up"
+								component={SignUp}
+							/>
+							{/* <Redirect to="/home" /> */}
+						</Switch>
+					) : (
+						<Switch>
+							<Route exact path="/" />
+							<Route exact path="/contact" component={Contact} />
+							<Route
+								exact
+								path="/users/login"
+								render={() => (
+									<Login
+										updateUser={this.updateUser}
+										loggedIn={this.state.loggedIn}
+									/>
+								)}
+							/>
+							<Route
+								exact
+								path="/users/sign-up"
+								component={SignUp}
+							/>
+						</Switch>
+					)}
 					<Footer />
 				</React.Fragment>
 			</BrowserRouter>

@@ -30,7 +30,7 @@ router.post("/sign-up", (req, res) => {
 
 router.post(
 	"/login",
-	function (req, res, next) {
+	(req, res, next) => {
 		console.log("routes/users.js, login, req.body: ");
 		console.log(req.body);
 		next();
@@ -45,7 +45,7 @@ router.post(
 	}
 );
 
-router.get("/", (req, res, next) => {
+router.get("/user", (req, res, next) => {
 	console.log("===== user!!======");
 	console.log(req.user);
 	if (req.user) {

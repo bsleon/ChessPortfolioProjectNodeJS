@@ -20,6 +20,7 @@
 		"chessboardjs": "0.0.1",
 		"chessboardjsx": "^2.4.2",
 		"connect-mongo": "^3.2.0",
+		"cors": "^2.8.5",
 		"express-session": "^1.17.1",
 		"font-awesome": "^4.7.0",
 		"fontawesome": "^5.6.3",
