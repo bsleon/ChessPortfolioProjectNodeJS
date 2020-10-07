@@ -15,32 +15,34 @@ class Login extends Component {
 		});
 	};
 
-    handleLogin = (event) => {
-        event.preventDefault();
-        console.log("handleLogin");
+	handleLogin = (event) => {
+		event.preventDefault();
+		console.log("handleLogin");
 
-        axios
-            .post("/users/login", {
-                username: this.state.username,
-                password: this.state.password,
-            })
-            .then((response) => {
-                console.log("login response: ");
-                console.log(response);
-                if (response.status === 200) {
-                    // update App.js state
+		axios
+			.post("/users/login", {
+				username: this.state.username,
+				password: this.state.password,
+				// games: ["123fdadf"],
+			})
+			.then((response) => {
+				console.log("login response: ");
+				console.log(response);
+				if (response.status === 200) {
+					// update App.js state
                     this.props.updateUser(true, response.data.username);
-                    // update the state to redirect to home
-                    this.setState({
-                        redirectTo: "/home",
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log("login error: ");
-                console.log(error);
-            });
-    };
+                    console.log(response.data)
+					// update the state to redirect to home
+					this.setState({
+						redirectTo: "/startgame",
+					});
+				}
+			})
+			.catch((error) => {
+				console.log("login error: ");
+				console.log(error);
+			});
+	};
 
 	render() {
 		if (this.state.redirectTo) {

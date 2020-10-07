@@ -9,6 +9,7 @@ import PlayComputer from "./components/PlayComputerComponent";
 import Contact from "./components/ContactMeComponent";
 import Login from "./components/LoginComponent";
 import SignUp from "./components/SignUpComponent";
+import StartGame from "./components/StartGameComponent";
 
 class App extends Component {
 	constructor() {
@@ -16,6 +17,8 @@ class App extends Component {
 		this.state = {
 			loggedIn: false,
 			username: null,
+			userId: null,
+			pgn: null,
 		};
 	}
 
@@ -27,8 +30,13 @@ class App extends Component {
 	// 	this.getUser();
 	// }
 
-	updateUser = (loggedIn, username) => {
-		this.setState({ loggedIn: loggedIn, username: username });
+	updateUser = (loggedIn, username, userId, pgn) => {
+		this.setState({
+			loggedIn: loggedIn,
+			username: username,
+			userId: userId,
+			pgn: pgn,
+		});
 	};
 
 	getUser = () => {
@@ -42,12 +50,14 @@ class App extends Component {
 				this.setState({
 					loggedIn: true,
 					username: response.data.user.username,
+					userId: response.data.user._id,
 				});
 			} else {
 				console.log("Get user: no user");
 				this.setState({
 					loggedIn: false,
 					username: null,
+					userId: null,
 				});
 			}
 		});
@@ -66,7 +76,12 @@ class App extends Component {
 							{/* <Route exact path="/home" component={Home} /> */}
 							{/* <Route exact path="/games/:gameid" component={Home} /> */}
 
-							<Route exact path="/home" component={Home} />
+							<Route exact path="/games/:gameId"
+								render={() => (
+									<Home pgn={this.state.pgn}/>
+								)}
+							// component={Home} 
+							/>
 
 							<Route
 								exact
@@ -81,6 +96,8 @@ class App extends Component {
 									<Login
 										updateUser={this.updateUser}
 										loggedIn={this.state.loggedIn}
+										username={this.state.username}
+										userId={this.state.userId}
 									/>
 								)}
 							/>
@@ -88,6 +105,13 @@ class App extends Component {
 								exact
 								path="/users/sign-up"
 								component={SignUp}
+							/>
+							<Route
+								exact
+								path="/startgame"
+								render={() => (
+									<StartGame userId={this.state.userId} />
+								)}
 							/>
 							{/* <Redirect to="/home" /> */}
 						</Switch>

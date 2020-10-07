@@ -14,6 +14,7 @@ import {
 	DropdownItem,
 } from "reactstrap";
 import io from "socket.io-client";
+import axios from "axios";
 
 let stockfish = null;
 
@@ -58,6 +59,9 @@ class Board extends Component {
 		};
 
 		this.socket = io("localhost:8080");
+		// this.socket = io("http://localhost:8080", {
+		// 	path: "/games/5f79de4b49c1c460b039fd01",
+		// });
 		this.socket.on("RECEIVE_MESSAGE", function (data) {
 			socketPlayMove(data);
 		});
@@ -65,6 +69,26 @@ class Board extends Component {
 		const socketPlayMove = (data) => {
 			this.setState({ position: data.fen });
 		};
+	}
+
+	loadDBGame() {
+		axios.get("/games/:gameId").then((response) => {
+			console.log("Get user response: ");
+			console.log(response.data);
+			if (response.data) {
+				console.log(response.data);
+				// this.setState({
+				// 	username: response.data.user.username,
+				// 	userId: response.data.user._id,
+				// });
+			} else {
+				console.log("Get game: no game");
+				// this.setState({
+				// 	username: null,
+				// 	userId: null,
+				// });
+			}
+		});
 	}
 
 	componentDidMount() {
@@ -76,6 +100,7 @@ class Board extends Component {
 				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
 			],
 		}));
+		this.loadDBGame();
 	}
 
 	toggleTurn = () => {

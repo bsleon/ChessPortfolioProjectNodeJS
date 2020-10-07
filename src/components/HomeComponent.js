@@ -7,7 +7,7 @@ class Home extends Component {
 			<React.Fragment>
 				<div className="container">
 					<div className="row">
-						<Board />
+						<Board pgn={this.props.pgn}/>
 					</div>
 				</div>
 			</React.Fragment>

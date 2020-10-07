@@ -90,7 +90,7 @@ class OpeningStats extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div class="row ml-0 p-0">
+				<div className="row ml-0 p-0">
 					<h5>{this.state.openingName}</h5>
 				</div>
 				<div className="row mb-3 ml-0 p-0" id="openingsInfoHeader">

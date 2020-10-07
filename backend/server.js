@@ -6,12 +6,14 @@ const session = require("express-session");
 const dbConnection = require("./database");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("./passport");
+
 const app = express();
 const PORT = 8080;
 // const cors = require("cors");
 
 //Route requires
 const usersRouter = require("./routes/users");
+const gamesRouter = require("./routes/games");
 
 // MIDDLEWARE
 // app.use(cors());
@@ -39,6 +41,7 @@ app.use(passport.session()); // calls the deserializeUser
 
 //Routes
 app.use("/users", usersRouter);
+app.use("/games", gamesRouter);
 
 //Socket.io
 const server = app.listen(PORT, () => {
